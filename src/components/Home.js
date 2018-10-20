@@ -10,6 +10,21 @@ import NewPoll from './NewPoll'
 
 class Home extends Component{
 
+    state = {
+        displayUnAnsweredPolls: true
+    }
+
+    onUnansweredSelected = (e) => {
+        console.log('Unanswered selected')
+        this.setState({displayUnAnsweredPolls:true})
+    }
+    onAnsweredSelected = (e) => {
+        console.log('Answered selected')
+        this.setState({displayUnAnsweredPolls:false})
+    }
+
+
+
     componentDidMount(){
         this.props.dispatch(handleGetQuestions())
     }
@@ -17,9 +32,11 @@ class Home extends Component{
     render() {
         return (            
             <Fragment>
-                <NavBar>
+                <NavBar onAnsweredSelected={this.onAnsweredSelected} onUnansweredSelected={this.onUnansweredSelected}>
                 </NavBar>
-                <PollsUnanswered />               
+                {
+                    this.state.displayUnAnsweredPolls ? <PollsUnanswered />  : <PollsAnswered /> 
+                }                             
             </Fragment>
         )
     }

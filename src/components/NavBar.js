@@ -9,12 +9,12 @@ const NavBar = (props) => {
         <nav className='nav'>
             <ul>
                 <li>
-                    <NavLink to="/home">
+                    <NavLink to="/home" onClick={(e) => props.onAnsweredSelected(e)}>
                         Answered
                         </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/home">
+                    <NavLink to="/home" onClick={(e) => props.onUnansweredSelected(e)}>
                         Unanswered
                         </NavLink>
                 </li>
@@ -24,7 +24,7 @@ const NavBar = (props) => {
                         </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/">
+                    <NavLink to="/" >
                         {props.user} - LogOut
                     </NavLink>
                 </li>
