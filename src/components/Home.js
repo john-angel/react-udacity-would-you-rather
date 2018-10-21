@@ -1,6 +1,8 @@
 import React, { Component,Fragment} from 'react';
 import { connect } from 'react-redux'
+
 import {handleGetQuestions} from '../actions/questions'
+import {resetAuthedUser} from '../actions/authedUser' 
 
 import NavBar from './NavBar'
 import PollsUnanswered from './PollsUnanswered'
@@ -14,16 +16,19 @@ class Home extends Component{
         displayUnAnsweredPolls: true
     }
 
-    onUnansweredSelected = (e) => {
+    onUnansweredSelected = () => {
         console.log('Unanswered selected')
         this.setState({displayUnAnsweredPolls:true})
     }
-    onAnsweredSelected = (e) => {
+    onAnsweredSelected = () => {
         console.log('Answered selected')
         this.setState({displayUnAnsweredPolls:false})
     }
 
-
+    onLogOutSelected =() => {
+        console.log('Reset authedUser')
+        this.props.dispatch(resetAuthedUser())
+    }
 
     componentDidMount(){
         this.props.dispatch(handleGetQuestions())
@@ -32,7 +37,9 @@ class Home extends Component{
     render() {
         return (            
             <Fragment>
-                <NavBar onAnsweredSelected={this.onAnsweredSelected} onUnansweredSelected={this.onUnansweredSelected}>
+                <NavBar onAnsweredSelected={this.onAnsweredSelected} onUnansweredSelected={this.onUnansweredSelected}
+                    onLogOutSelected={this.onLogOutSelected}
+                >
                 </NavBar>
                 {
                     this.state.displayUnAnsweredPolls ? <PollsUnanswered />  : <PollsAnswered /> 

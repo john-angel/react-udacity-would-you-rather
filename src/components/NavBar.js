@@ -9,12 +9,13 @@ const NavBar = (props) => {
         <nav className='nav'>
             <ul>
                 <li>
-                    <NavLink to="/home" onClick={(e) => props.onAnsweredSelected(e)}>
+                    <NavLink to="/home" onClick={(e) => props.onAnsweredSelected()}
+                    >
                         Answered
                         </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/home" onClick={(e) => props.onUnansweredSelected(e)}>
+                    <NavLink to="/home" onClick={(e) => props.onUnansweredSelected()}>
                         Unanswered
                         </NavLink>
                 </li>
@@ -24,7 +25,7 @@ const NavBar = (props) => {
                         </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/" >
+                    <NavLink to="/" onClick={() => props.onLogOutSelected()}>
                         {props.user} - LogOut
                     </NavLink>
                 </li>
@@ -35,7 +36,7 @@ const NavBar = (props) => {
 }
 
 const mapStateToProps = state => {
-    return { user: 'Test' }//state.users[state.authedUser].name
+    return { user: state.users[state.authedUser].name }
 }
 
 export default connect(mapStateToProps)(NavBar)
