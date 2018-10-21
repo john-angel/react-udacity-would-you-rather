@@ -12,23 +12,19 @@ import Leaderboard from './Leaderboard'
 
 class App extends Component {
 
-  onUnansweredSelected = () => {
-    console.log('Unanswered selected')
-    this.setState({displayUnAnsweredPolls:true})
-  }
-  onAnsweredSelected = () => {
-      console.log('Answered selected')
-      this.setState({displayUnAnsweredPolls:false})
+  state = {
+    displayUnAnsweredPolls: true
   }
 
-  onLogOutSelected =() => {
-      console.log('Reset authedUser')
-      this.props.dispatch(resetAuthedUser())
-  }
+  onUnansweredSelected = () => (this.setState({displayUnAnsweredPolls:true}))  
 
-componentDidMount(){
+  onAnsweredSelected = () => (this.setState({displayUnAnsweredPolls:false}))
+
+  onLogOutSelected =() => (this.props.dispatch(resetAuthedUser()))      
+
+  componentDidMount() {
     this.props.dispatch(handleGetQuestions())
-}
+  }
   
   render() {
     return (
@@ -44,8 +40,7 @@ componentDidMount(){
               :
               null
           }
-                
-          <Route path='/home' component={Home} />
+          <Route path='/home' render={(props) => <Home {...props} displayUnAnsweredPolls={this.state.displayUnAnsweredPolls} />} />
           <Route path='/leaderboard' component={Leaderboard} />
         </Fragment>
       </Router>

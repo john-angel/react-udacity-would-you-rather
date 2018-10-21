@@ -1,32 +1,37 @@
 import React, { Component,Fragment} from 'react';
 import { connect } from 'react-redux'
 
-import PollsUnanswered from './PollsUnanswered'
-import PollsAnswered from './PollsAnswered'
-import NewPoll from './NewPoll'
+import Polls from './Polls'
 
 class Home extends Component{
 
-    state = {
-        displayUnAnsweredPolls: true
-    }
-    
     render() {
-        return (            
+        return (
+
             <Fragment>
-                
-                {
-                    this.state.displayUnAnsweredPolls ? <PollsUnanswered />  : <PollsAnswered /> 
-                }                             
+            {
+                this.props.polls.map(poll => (<Polls key={poll.id} data={poll}/>))
+            }                
             </Fragment>
         )
     }
 }
 
-const mapStateToProps = state => {
-    return{
-        authedUser: state.authedUser
-    }
+const mapStateToProps = (state,ownProps) => {
+
+    const answers = state.users[state.authedUser].answers
+    
+    const questionsIds = Object.keys(state.questions).filter(
+        question => ownProps.displayUnAnsweredPolls ? typeof answers[question] === 'undefined' 
+        : typeof answers[question] !== 'undefined'
+    )
+
+    const questions = questionsIds.map(question => (state.questions[question]))
+    
+    questions.sort((a,b) => (b.timestamp - a.timestamp))
+
+    return { polls:questions }
+    
 }
 
 export default connect(mapStateToProps)(Home)

@@ -9,13 +9,13 @@ const NavBar = (props) => {
         <nav className='nav'>
             <ul>
                 <li>
-                    <NavLink to="/home" onClick={(e) => props.onAnsweredSelected()}
+                    <NavLink to="/home" onClick={() => props.onAnsweredSelected()}
                     >
                         Answered
                         </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/home" onClick={(e) => props.onUnansweredSelected()}>
+                    <NavLink to="/home" onClick={() => props.onUnansweredSelected()}>
                         Unanswered
                         </NavLink>
                 </li>
