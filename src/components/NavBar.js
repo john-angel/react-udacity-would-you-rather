@@ -20,7 +20,7 @@ const NavBar = (props) => {
                         </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/home">
+                    <NavLink to="/leaderboard">
                         Leaderboard
                         </NavLink>
                 </li>
