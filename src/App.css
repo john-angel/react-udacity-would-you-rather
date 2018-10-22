@@ -53,3 +53,10 @@ li {
   padding: 10px;
   text-decoration: none;
 }
+
+.selected {
+  color:violet;
+}
+.notSelected {
+  color:blue
+}
