@@ -20,7 +20,10 @@ class App extends Component {
 
   onAnsweredSelected = () => (this.setState({displayUnAnsweredPolls:false}))
 
-  onLogOutSelected =() => (this.props.dispatch(resetAuthedUser()))      
+  onLogOutSelected =() => {
+    this.setState({displayUnAnsweredPolls:true})
+    this.props.dispatch(resetAuthedUser())
+  }      
 
   componentDidMount() {
     this.props.dispatch(handleGetQuestions())
