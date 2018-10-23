@@ -54,6 +54,11 @@ class NavBar extends Component {
                             </NavLink>
                     </li>
                     <li>
+                        <NavLink to="/add" className="notSelected">
+                            Add Poll
+                        </NavLink>
+                    </li>
+                    <li>
                         <NavLink to="/" className="notSelected" onClick={() => this.props.onLogOutSelected()}>
                             {this.props.user} - LogOut
                         </NavLink>
