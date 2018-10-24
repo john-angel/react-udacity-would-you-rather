@@ -8,11 +8,6 @@ class NewPoll extends Component{
     handleSubmit = (e) => {
         e.preventDefault()
 
-        console.group('Poll data')
-        console.log('Option 1: ', this.option1.value)
-        console.log('Option 2: ', this.option2.value)
-        console.groupEnd()
-
         const {dispatch, author} = this.props
         const question = {}
         question.author = author

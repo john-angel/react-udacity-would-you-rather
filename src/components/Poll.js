@@ -1,31 +1,31 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import '../App.css';
-import {handleSaveQuestionAnswer} from '../actions/questions'
+import {Link,withRouter} from 'react-router-dom'
 
-class Poll extends Component {
+class Poll extends Component{
 
-    onAnswerSelected = (e,option) => {
-        console.warn('Option', option, 'from question', this.props.data.id)
-        return this.props.dispatch(handleSaveQuestionAnswer(this.props.data.id,option))        
+    onPollSelected = (e,id) => {
+        e.preventDefault()
+        this.props.history.push({
+            pathname:`/questions/${id}`           
+        })
     }
 
     render(){
         return(
             <div>
-                <p>Would you rather?</p>
-                <p onClick={(e) => this.onAnswerSelected(e, 'optionOne')}>{this.props.data.optionOne.text} Votes: {this.props.data.optionOne.votes.length} - {(this.props.data.optionOne.votes.length/(this.props.data.optionOne.votes.length + this.props.data.optionTwo.votes.length))*100} %</p>
-                <p onClick={(e) => this.onAnswerSelected(e, 'optionTwo')}>{this.props.data.optionTwo.text} Votes: {this.props.data.optionTwo.votes.length} - {(this.props.data.optionTwo.votes.length/(this.props.data.optionOne.votes.length + this.props.data.optionTwo.votes.length))*100} %</p>
-                <img src={this.props.data.authorAvatarURL}
-                     alt={this.props.data.authorName}
-                     className='avatar'
-                />
-                <p>Author: {this.props.data.authorName}</p>
-                <p>Date: {new Date(this.props.data.timestamp).toDateString()}</p>
+                <Link to={`/questions/${this.props.id}`} className='question' onClick={(e) => this.onPollSelected(e, this.props.id)}>Detail</Link>
+                <p>{this.props.data.optionOne.text}</p>
+                <p>{this.props.data.optionTwo.text}</p>
+                <p>{new Date(this.props.data.timestamp).toDateString()}</p>
             </div>
         )
     }
-    
 }
 
-export default connect()(Poll)
+function mapStateToProps(state, props) {
+    const { id } = props.data   
+    return {id}
+}
+
+export default withRouter(connect(mapStateToProps)(Poll));

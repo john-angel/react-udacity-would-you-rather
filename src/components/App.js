@@ -10,6 +10,7 @@ import Home from './Home'
 import NavBar from './NavBar'
 import Leaderboard from './Leaderboard'
 import NewPoll from './NewPoll'
+import PollDetail from './PollDetail'
 
 class App extends Component {
 
@@ -46,6 +47,7 @@ class App extends Component {
           }
           <Route path='/home' render={(props) => <Home {...props} displayUnAnsweredPolls={this.state.displayUnAnsweredPolls} />} />
           <Route path='/leaderboard' component={Leaderboard} />
+          <Route path='/questions/:id' component={PollDetail} />
           <Route path='/add' component={NewPoll}/>
         </Fragment>
       </Router>

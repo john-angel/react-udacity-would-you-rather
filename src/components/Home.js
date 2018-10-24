@@ -1,7 +1,7 @@
 import React, { Component,Fragment} from 'react';
 import { connect } from 'react-redux'
 
-import Polls from './Polls'
+import Poll from './Poll'
 
 class Home extends Component{
 
@@ -10,7 +10,7 @@ class Home extends Component{
 
             <Fragment>
             {
-                this.props.polls.map(poll => (<Polls key={poll.id} data={poll}/>))
+                this.props.polls.map(poll => (<Poll key={poll.id} data={poll}/>))
             }                
             </Fragment>
         )
