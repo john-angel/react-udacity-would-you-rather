@@ -15,14 +15,6 @@ class PollDetail extends Component {
 
     render(){
 
-        const votesOptionOne = (this.props.data.optionOne.votes.length / (this.props.data.optionOne.votes.length + this.props.data.optionTwo.votes.length)) * 100
-
-        const votesOptionTwo = (this.props.data.optionTwo.votes.length / (this.props.data.optionOne.votes.length + this.props.data.optionTwo.votes.length)) * 100
-
-        console.log('Option 1 votes:', votesOptionOne)
-        console.log('Option 2 votes:', votesOptionTwo)
-
-
         return(
             <div>
                 <p>Would you rather?</p>
