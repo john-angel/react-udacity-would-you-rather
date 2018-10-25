@@ -14,12 +14,42 @@ class PollDetail extends Component {
     }
 
     render(){
-        
+
+        const votesOptionOne = (this.props.data.optionOne.votes.length / (this.props.data.optionOne.votes.length + this.props.data.optionTwo.votes.length)) * 100
+
+        const votesOptionTwo = (this.props.data.optionTwo.votes.length / (this.props.data.optionOne.votes.length + this.props.data.optionTwo.votes.length)) * 100
+
+        console.log('Option 1 votes:', votesOptionOne)
+        console.log('Option 2 votes:', votesOptionTwo)
+
+
         return(
             <div>
                 <p>Would you rather?</p>
-                <p onClick={(e) => this.onAnswerSelected(e, 'optionOne')}>{this.props.data.optionOne.text} Votes: {this.props.data.optionOne.votes.length} - {(this.props.data.optionOne.votes.length/(this.props.data.optionOne.votes.length + this.props.data.optionTwo.votes.length))*100} %</p>
-                <p onClick={(e) => this.onAnswerSelected(e, 'optionTwo')}>{this.props.data.optionTwo.text} Votes: {this.props.data.optionTwo.votes.length} - {(this.props.data.optionTwo.votes.length/(this.props.data.optionOne.votes.length + this.props.data.optionTwo.votes.length))*100} %</p>
+                <p onClick={(e) => this.onAnswerSelected(e, 'optionOne')}>
+                    {
+                        `${this.props.data.optionOne.text} Votes: 
+                        ${
+                            (this.props.data.optionOne.votes.length || this.props.data.optionTwo.votes.length)
+                            ?
+                            (this.props.data.optionOne.votes.length/(this.props.data.optionOne.votes.length + this.props.data.optionTwo.votes.length)) * 100
+                            : 
+                            0
+                        } %`
+                    }            
+                </p>
+                <p onClick={(e) => this.onAnswerSelected(e, 'optionTwo')}>
+                    {
+                        `${this.props.data.optionTwo.text} Votes:
+                        ${
+                            (this.props.data.optionOne.votes.length || this.props.data.optionTwo.votes.length)
+                            ?
+                            (this.props.data.optionTwo.votes.length/(this.props.data.optionOne.votes.length + this.props.data.optionTwo.votes.length)) * 100
+                            :
+                            0
+                         } %`
+                    }
+                </p>
                 <img src={this.props.authorAvatarURL}
                      alt={this.props.authorName}
                      className='avatar'
