@@ -7,7 +7,8 @@ class Poll extends Component{
     onPollSelected = (e,id) => {
         e.preventDefault()
         this.props.history.push({
-            pathname:`/questions/${id}`           
+            pathname:`/questions/${id}`,
+            state:{unAnswered:this.props.unAnswered}           
         })
     }
 
@@ -25,7 +26,9 @@ class Poll extends Component{
 
 function mapStateToProps(state, props) {
     const { id } = props.data   
-    return {id}
+    return {
+        id,
+        unAnswered: props.unAnswered}
 }
 
 export default withRouter(connect(mapStateToProps)(Poll));

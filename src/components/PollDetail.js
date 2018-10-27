@@ -13,34 +13,26 @@ class PollDetail extends Component {
         return this.props.dispatch(handleSaveQuestionAnswer(this.props.data.id,option))        
     }
 
+    getVotesInfo = (option) => {
+        const votes = option.votes.length
+        const percentage = (this.props.data.optionOne.votes.length || this.props.data.optionTwo.votes.length) ?
+        (votes/(this.props.data.optionOne.votes.length + this.props.data.optionTwo.votes.length)) * 100 :
+        0
+
+        const info = `Votes: ${votes} - (${percentage}%)`
+        return info
+    }
+
     render(){
 
         return(
             <div>
                 <p>Would you rather?</p>
                 <p onClick={(e) => this.onAnswerSelected(e, 'optionOne')}>
-                    {
-                        `${this.props.data.optionOne.text} Votes: 
-                        ${
-                            (this.props.data.optionOne.votes.length || this.props.data.optionTwo.votes.length)
-                            ?
-                            (this.props.data.optionOne.votes.length/(this.props.data.optionOne.votes.length + this.props.data.optionTwo.votes.length)) * 100
-                            : 
-                            0
-                        } %`
-                    }            
+                    {this.props.data.optionOne.text} {this.props.unAnswered ? '': this.getVotesInfo(this.props.data.optionOne)}           
                 </p>
-                <p onClick={(e) => this.onAnswerSelected(e, 'optionTwo')}>
-                    {
-                        `${this.props.data.optionTwo.text} Votes:
-                        ${
-                            (this.props.data.optionOne.votes.length || this.props.data.optionTwo.votes.length)
-                            ?
-                            (this.props.data.optionTwo.votes.length/(this.props.data.optionOne.votes.length + this.props.data.optionTwo.votes.length)) * 100
-                            :
-                            0
-                         } %`
-                    }
+                <p onClick={(e) => this.onAnswerSelected(e, 'optionTwo')}>                
+                        {this.props.data.optionTwo.text} {this.props.unAnswered ? '': this.getVotesInfo(this.props.data.optionTwo)}                  
                 </p>
                 <img src={this.props.authorAvatarURL}
                      alt={this.props.authorName}
@@ -61,7 +53,8 @@ function mapStateToProps(state, props) {
 
     return {data,
         authorAvatarURL:avatarURL,
-        authorName:name
+        authorName:name,
+        unAnswered:props.history.location.state.unAnswered
     }
 }    
 

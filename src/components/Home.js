@@ -10,7 +10,7 @@ class Home extends Component{
 
             <Fragment>
             {
-                this.props.polls.map(poll => (<Poll key={poll.id} data={poll}/>))
+                this.props.polls.map(poll => (<Poll key={poll.id} data={poll} unAnswered={this.props.unAnswered}/>))
             }                
             </Fragment>
         )
@@ -30,7 +30,9 @@ const mapStateToProps = (state,ownProps) => {
     
     questions.sort((a,b) => (b.timestamp - a.timestamp))
 
-    return { polls:questions }
+    return { 
+        polls:questions,
+        unAnswered:ownProps.displayUnAnsweredPolls }
     
 }
 
