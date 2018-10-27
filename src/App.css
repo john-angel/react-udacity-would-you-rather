@@ -85,3 +85,7 @@ input {
 a {
   cursor: pointer;
 }
+
+.optionSelected{
+  color:blue;
+}
