@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import {connect} from 'react-redux'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 
 import {handleGetQuestions} from '../actions/questions'
 import {resetAuthedUser} from '../actions/authedUser' 
@@ -30,6 +30,7 @@ class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleGetQuestions())
   }
+  //{...props}
   
   render() {
     return (
@@ -45,10 +46,23 @@ class App extends Component {
               :
               null
           }
-          <Route path='/home' render={(props) => <Home {...props} displayUnAnsweredPolls={this.state.displayUnAnsweredPolls} />} />
-          <Route path='/leaderboard' component={Leaderboard} />
-          <Route path='/questions/:id' component={PollDetail} />
-          <Route path='/add' component={NewPoll}/>
+          <Route path='/home' render={() => (
+            this.props.authedUser !== '' ?  <Home displayUnAnsweredPolls={this.state.displayUnAnsweredPolls} /> :
+            <Redirect to='/'></Redirect>
+          )} />
+        
+          <Route path='/leaderboard' render={() => (
+            this.props.authedUser !== '' ?  <Leaderboard/> :
+            <Redirect to='/'></Redirect>
+          )} />
+          <Route path='/questions/:id' render={() => (
+            this.props.authedUser !== '' ?  <PollDetail/> :
+            <Redirect to='/'></Redirect>
+          )} />
+          <Route path='/add' render={() => (
+            this.props.authedUser !== '' ?  <NewPoll/> :
+            <Redirect to='/'></Redirect>
+          )} />
         </Fragment>
       </Router>
     )
