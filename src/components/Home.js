@@ -14,11 +14,8 @@ class Home extends Component{
             console.log('Redirecting to', url)
             this.props.history.push({ pathname: url })
         }
-
-        //this.props.history.push({ pathname: this.props.location.state.referrer })
     }
     
-
     render() {
         return (
 
