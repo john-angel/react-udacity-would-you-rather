@@ -11,7 +11,7 @@ import NavBar from './NavBar'
 import Leaderboard from './Leaderboard'
 import NewPoll from './NewPoll'
 import PollDetail from './PollDetail'
-import PageNotFound from './PageNotFound';
+import RedirectPage from './RedirectPage';
 
 class App extends Component {
 
@@ -57,7 +57,7 @@ class App extends Component {
               :
                 <Switch>
                   <Route exact path='/' component={Login} />
-                  <Route component={PageNotFound} />
+                  <Route component={RedirectPage} />
                 </Switch>
           }
       </Router>
