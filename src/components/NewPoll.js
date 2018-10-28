@@ -1,5 +1,7 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
+
 import { handleSaveQuestion } from '../actions/questions';
 import '../App.css'
 
@@ -15,7 +17,9 @@ class NewPoll extends Component{
         question.optionTwoText = this.option2.value
 
         dispatch(handleSaveQuestion(question))
-       
+        this.props.history.push({pathname:'/home'})
+        console.log('this.props', this.props)
+        this.props.onPollAdded()
     }
     render(){
         return(
@@ -33,8 +37,10 @@ class NewPoll extends Component{
     }
 }
 
-const mapStateToProps = state => {
-    return {author:state.authedUser}
+const mapStateToProps = (state,ownProps) => {
+    return {
+        author:state.authedUser,
+    }
 }
 
-export default connect(mapStateToProps)(NewPoll);
+export default withRouter(connect(mapStateToProps)(NewPoll));

@@ -22,6 +22,11 @@ class App extends Component {
 
   onAnsweredSelected = () => (this.setState({displayUnAnsweredPolls:false}))
 
+  onPollAdded = () => {
+    console.log('onPollAdded invoked')
+    this.setState({displayUnAnsweredPolls:true})
+  }
+
   onLogOutSelected =() => {
     this.setState({displayUnAnsweredPolls:true})
     this.props.dispatch(resetAuthedUser())
@@ -44,7 +49,7 @@ class App extends Component {
                   <Route path='/home' render={() => <Home displayUnAnsweredPolls={this.state.displayUnAnsweredPolls} />} />
                   <Route path='/leaderboard' component={Leaderboard} />
                   <Route path='/questions/:id' component={PollDetail} />
-                  <Route path='/add' component={NewPoll} />
+                  <Route path='/add' render={() => <NewPoll onPollAdded={this.onPollAdded}/>} />
                 </Switch>
               </Fragment>)            
               :

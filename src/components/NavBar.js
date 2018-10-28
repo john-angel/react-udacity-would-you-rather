@@ -8,11 +8,12 @@ class NavBar extends Component {
     state = {
         classAnswered: 'notSelected',
         classUnanswered: 'selected',
-        classLeaderboard: 'notSelected'
+        classLeaderboard: 'notSelected',
+        classAddPoll: 'notSelected'
     }
 
     resetLinkClasses = () => {
-        this.setState({classAnswered: 'notSelected',classUnanswered:'notSelected',classLeaderboard:'notSelected'})
+        this.setState({classAnswered: 'notSelected',classUnanswered:'notSelected',classLeaderboard:'notSelected',classAddPoll: 'notSelected'})
 
     }
 
@@ -31,6 +32,11 @@ class NavBar extends Component {
     onLeaderboardSelected = () => {
         this.resetLinkClasses()
         this.setState({classLeaderboard: 'selected'})
+    }
+
+    onAddPollSelected = () => {
+        this.resetLinkClasses()
+        this.setState({classAddPoll: 'selected'})
     }
 
     render(){
@@ -54,7 +60,7 @@ class NavBar extends Component {
                             </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/add" className="notSelected">
+                        <NavLink to="/add" className={this.state.classAddPoll} onClick={() => this.onAddPollSelected()}>
                             Add Poll
                         </NavLink>
                     </li>
