@@ -10,6 +10,7 @@ class User extends Component{
     onUserSelected = (e, userId) =>{
         console.log('User', userId, ' logged in')
         this.props.dispatch(setAuthedUser(userId))
+        window.sessionStorage.setItem('authedUser',userId)
     }
     
     render(){

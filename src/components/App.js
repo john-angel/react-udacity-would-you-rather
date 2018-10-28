@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import {connect} from 'react-redux'
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 import {handleGetQuestions} from '../actions/questions'
 import {resetAuthedUser} from '../actions/authedUser' 
@@ -25,45 +25,31 @@ class App extends Component {
   onLogOutSelected =() => {
     this.setState({displayUnAnsweredPolls:true})
     this.props.dispatch(resetAuthedUser())
+    sessionStorage.removeItem('authedUser');
   }      
 
   componentDidMount() {
     this.props.dispatch(handleGetQuestions())
   }
-  //{...props}
   
   render() {
     return (
-      <Router>
-        <Fragment>
-          <Route path='/' exact component={Login} />
+      <Router>          
           {
-            this.props.authedUser !== '' ?
-              <NavBar onUnansweredSelected={this.onUnansweredSelected} onAnsweredSelected={this.onAnsweredSelected}
-              onLogOutSelected={this.onLogOutSelected}
-              >
-              </NavBar>
+            this.props.authedUser !== '' ? (
+              <Fragment>
+                <NavBar onUnansweredSelected={this.onUnansweredSelected} onAnsweredSelected={this.onAnsweredSelected}
+                onLogOutSelected={this.onLogOutSelected}/>
+                <Switch>
+                  <Route path='/home' render={() => <Home displayUnAnsweredPolls={this.state.displayUnAnsweredPolls} />} />
+                  <Route path='/leaderboard' component={Leaderboard} />
+                  <Route path='/questions/:id' component={PollDetail} />
+                  <Route path='/add' component={NewPoll} />
+                </Switch>
+              </Fragment>)            
               :
-              null
+              <Route component={Login} />
           }
-          <Route path='/home' render={() => (
-            this.props.authedUser !== '' ?  <Home displayUnAnsweredPolls={this.state.displayUnAnsweredPolls} /> :
-            <Redirect to='/'></Redirect>
-          )} />
-        
-          <Route path='/leaderboard' render={() => (
-            this.props.authedUser !== '' ?  <Leaderboard/> :
-            <Redirect to='/'></Redirect>
-          )} />
-          <Route path='/questions/:id' render={() => (
-            this.props.authedUser !== '' ?  <PollDetail/> :
-            <Redirect to='/'></Redirect>
-          )} />
-          <Route path='/add' render={() => (
-            this.props.authedUser !== '' ?  <NewPoll/> :
-            <Redirect to='/'></Redirect>
-          )} />
-        </Fragment>
       </Router>
     )
   }
