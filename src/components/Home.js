@@ -1,9 +1,23 @@
 import React, { Component,Fragment} from 'react';
 import { connect } from 'react-redux'
+import {withRouter} from 'react-router-dom'
 
 import Poll from './Poll'
 
 class Home extends Component{
+
+    componentDidMount(){
+        const url = window.sessionStorage.getItem('urlRequested')
+        
+        if(url != null){
+            window.sessionStorage.removeItem('urlRequested')
+            console.log('Redirecting to', url)
+            this.props.history.push({ pathname: url })
+        }
+
+        //this.props.history.push({ pathname: this.props.location.state.referrer })
+    }
+    
 
     render() {
         return (
@@ -36,4 +50,4 @@ const mapStateToProps = (state,ownProps) => {
     
 }
 
-export default connect(mapStateToProps)(Home)
+export default withRouter(connect(mapStateToProps)(Home));

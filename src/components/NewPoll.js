@@ -18,7 +18,6 @@ class NewPoll extends Component{
 
         dispatch(handleSaveQuestion(question))
         this.props.history.push({pathname:'/home'})
-        console.log('this.props', this.props)
         this.props.onPollAdded()
     }
     render(){

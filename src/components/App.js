@@ -11,22 +11,23 @@ import NavBar from './NavBar'
 import Leaderboard from './Leaderboard'
 import NewPoll from './NewPoll'
 import PollDetail from './PollDetail'
+import PageNotFound from './PageNotFound';
 
 class App extends Component {
 
   state = {
-    displayUnAnsweredPolls: true
+    displayUnAnsweredPolls: true,
+    pollAdded:false
   }
 
-  onUnansweredSelected = () => (this.setState({displayUnAnsweredPolls:true}))  
+  onUnansweredSelected = () => (this.setState({displayUnAnsweredPolls:true,pollAdded:false}))  
 
-  onAnsweredSelected = () => (this.setState({displayUnAnsweredPolls:false}))
+  onAnsweredSelected = () => (this.setState({displayUnAnsweredPolls:false,pollAdded:false}))
 
-  onPollAdded = () => {
-    console.log('onPollAdded invoked')
-    this.setState({displayUnAnsweredPolls:true})
-  }
+  onLeaderboardSelected = () => this.setState({pollAdded:false})
 
+  onPollAdded = () => this.setState({displayUnAnsweredPolls:true,pollAdded:true})
+  
   onLogOutSelected =() => {
     this.setState({displayUnAnsweredPolls:true})
     this.props.dispatch(resetAuthedUser())
@@ -35,6 +36,7 @@ class App extends Component {
 
   componentDidMount() {
     this.props.dispatch(handleGetQuestions())
+
   }
   
   render() {
@@ -44,23 +46,26 @@ class App extends Component {
             this.props.authedUser !== '' ? (
               <Fragment>
                 <NavBar onUnansweredSelected={this.onUnansweredSelected} onAnsweredSelected={this.onAnsweredSelected}
-                onLogOutSelected={this.onLogOutSelected}/>
+                onLeaderboardSelected={this.onLeaderboardSelected} onLogOutSelected={this.onLogOutSelected} pollAdded={this.state.pollAdded}/>
                 <Switch>
-                  <Route path='/home' render={() => <Home displayUnAnsweredPolls={this.state.displayUnAnsweredPolls} />} />
+                  <Route path='/home' render={() => <Home displayUnAnsweredPolls={this.state.displayUnAnsweredPolls} />}/>
                   <Route path='/leaderboard' component={Leaderboard} />
                   <Route path='/questions/:id' component={PollDetail} />
                   <Route path='/add' render={() => <NewPoll onPollAdded={this.onPollAdded}/>} />
                 </Switch>
               </Fragment>)            
               :
-              <Route component={Login} />
+                <Switch>
+                  <Route exact path='/' component={Login} />
+                  <Route component={PageNotFound} />
+                </Switch>
           }
       </Router>
     )
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {authedUser : state.authedUser}
 }
 

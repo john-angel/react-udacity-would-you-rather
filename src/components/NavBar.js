@@ -32,12 +32,15 @@ class NavBar extends Component {
     onLeaderboardSelected = () => {
         this.resetLinkClasses()
         this.setState({classLeaderboard: 'selected'})
+        this.props.onLeaderboardSelected()
     }
 
     onAddPollSelected = () => {
         this.resetLinkClasses()
         this.setState({classAddPoll: 'selected'})
     }
+
+  
 
     render(){
         return (
@@ -50,17 +53,17 @@ class NavBar extends Component {
                             </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/home" className={this.state.classUnanswered} onClick={() => this.onUnansweredSelected()}>
+                        <NavLink to="/home" className={this.props.pollAdded ? 'selected'  : this.state.classUnanswered} onClick={() => this.onUnansweredSelected()}>
                             Unanswered
                             </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/leaderboard" className={this.state.classLeaderboard} onClick={() => this.onLeaderboardSelected()}>
+                        <NavLink to="/leaderboard" className={this.props.pollAdded ? 'notSelected' : this.state.classLeaderboard} onClick={() => this.onLeaderboardSelected()}>
                             Leaderboard
                             </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/add" className={this.state.classAddPoll} onClick={() => this.onAddPollSelected()}>
+                        <NavLink to="/add" className={this.props.pollAdded ? 'notSelected'  : this.state.classAddPoll} onClick={() => this.onAddPollSelected()}>
                             Add Poll
                         </NavLink>
                     </li>
@@ -76,8 +79,11 @@ class NavBar extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return { user: state.users[state.authedUser].name }
+const mapStateToProps = (state,ownProps) => {
+    return { 
+        user: state.users[state.authedUser].name,
+        pollAdded:ownProps.pollAdded
+    }
 }
 
-export default connect(mapStateToProps)(NavBar)
+export default connect(mapStateToProps)(NavBar);

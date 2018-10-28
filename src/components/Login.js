@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+
 import {handleGetUsers} from '../actions/users'
 import User from './User'
 import logo from '../logo.svg';

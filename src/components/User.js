@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+
 import { connect } from 'react-redux'
+
 import '../App.css';
 import {setAuthedUser} from '../actions/authedUser'
 
@@ -11,8 +13,10 @@ class User extends Component{
         console.log('User', userId, ' logged in')
         this.props.dispatch(setAuthedUser(userId))
         window.sessionStorage.setItem('authedUser',userId)
+
     }
-    
+
+   
     render(){
         return (
             <li onClick={(e) => this.onUserSelected(e, this.props.id)}>
