@@ -89,3 +89,12 @@ a {
 .optionSelected{
   color:blue;
 }
+
+.pollOption {
+  cursor: pointer;
+}
+
+.pollOption:hover {
+  text-decoration: underline;
+  color:blue;
+}

@@ -9,7 +9,6 @@ class PollDetail extends Component {
 
     onAnswerSelected = (e,option) => {
         e.preventDefault()
-        console.warn('Option', option, 'was selected from question', this.props.data.id)
         return this.props.dispatch(handleSaveQuestionAnswer(this.props.data.id,option))        
     }
 
@@ -24,18 +23,18 @@ class PollDetail extends Component {
         (votes/(this.props.data.optionOne.votes.length + this.props.data.optionTwo.votes.length)) * 100 :
         0
 
-        return `Votes: ${votes} - (${percentage}%)`
+        return `Votes: ${votes} - (${percentage.toFixed(2)}%)`
     }
 
     render(){
 
         return(
             <div>
-                <p>Would you rather?</p>
-                <p onClick={(e) => this.onAnswerSelected(e, 'optionOne')} className={this.getOptionClassName(this.props.data.optionOne)}>
+                <h4>Would you rather?</h4>
+                <p onClick={this.props.unAnswered ? (e) => this.onAnswerSelected(e, 'optionOne'):null} className={`pollOption  ${this.getOptionClassName(this.props.data.optionOne)}`}>
                     {this.props.data.optionOne.text} {this.props.unAnswered ? '': this.getVotesInfo(this.props.data.optionOne)}           
                 </p>
-                <p onClick={(e) => this.onAnswerSelected(e, 'optionTwo')} className={this.getOptionClassName(this.props.data.optionTwo)}>                
+                <p onClick={this.props.unAnswered ? (e) => this.onAnswerSelected(e, 'optionTwo'):null} className={`pollOption ${this.getOptionClassName(this.props.data.optionTwo)}`}>                
                         {this.props.data.optionTwo.text} {this.props.unAnswered ? '': this.getVotesInfo(this.props.data.optionTwo)}                  
                 </p>
                 <img src={this.props.authorAvatarURL}
@@ -43,7 +42,7 @@ class PollDetail extends Component {
                      className='avatar'
                 />
                 <p>Author: {this.props.authorName}</p>
-                <p>Date: {new Date(this.props.data.timestamp).toDateString()}</p>
+                <p>Created: {new Date(this.props.data.timestamp).toDateString()}</p>
             </div>
         )
     }
