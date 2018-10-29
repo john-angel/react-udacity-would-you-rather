@@ -6,7 +6,7 @@ class PageNotFound extends Component{
     }
     render(){
         return(
-            <h3>Oops that page is no longer with us :-(</h3>
+            <h3>404 - Oops that page is no longer with us :-(</h3>
 
         )
     }

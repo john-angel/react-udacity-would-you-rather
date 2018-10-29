@@ -6,13 +6,13 @@ class RedirectPage extends Component{
     componentDidMount(){
         console.log('Page requested', this.props.location.pathname)
         window.sessionStorage.setItem('urlRequested',this.props.location.pathname)
-
+   
         switch(this.props.location.pathname){
             case '/home':
             case '/leaderboard':
             case '/add':
                 setTimeout(() => this.props.history.push({pathname: '/'}), 3000)
-            break;
+            break;           
             default:
                 this.props.history.push({pathname: '/pagenotfound'})            
             break;
