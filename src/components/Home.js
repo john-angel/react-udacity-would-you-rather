@@ -21,7 +21,16 @@ class Home extends Component{
 
             <Fragment>
             {
-                this.props.polls.map(poll => (<Poll key={poll.id} data={poll} unAnswered={this.props.unAnswered}/>))
+                <ul>
+                {
+                    this.props.polls.map(poll => 
+                        <li key={poll.id}>
+                            <Poll key={poll.id} data={poll} unAnswered={this.props.unAnswered}/>
+                        </li>
+                    )
+                }
+                </ul>
+                
             }                
             </Fragment>
         )

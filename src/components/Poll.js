@@ -15,10 +15,9 @@ class Poll extends Component{
     render(){
         return(
             <div>
-                <Link to={`/questions/${this.props.id}`} className='question' onClick={(e) => this.onPollSelected(e, this.props.id)}>Detail</Link>
-                <p>{this.props.data.optionOne.text}</p>
-                <p>{this.props.data.optionTwo.text}</p>
-                <p>{new Date(this.props.data.timestamp).toDateString()}</p>
+                <Link to={`/questions/${this.props.id}`} className='question' onClick={(e) => this.onPollSelected(e, this.props.id)}>
+                    {this.props.data.optionOne.text} or {this.props.data.optionTwo.text}
+                </Link>
             </div>
         )
     }
