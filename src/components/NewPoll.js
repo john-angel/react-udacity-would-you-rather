@@ -36,7 +36,7 @@ class NewPoll extends Component{
     }
 }
 
-const mapStateToProps = (state,ownProps) => {
+const mapStateToProps = state => {
     return {
         author:state.authedUser,
     }

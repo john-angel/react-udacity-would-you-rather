@@ -11,6 +11,7 @@ class RedirectPage extends Component{
             case '/home':
             case '/leaderboard':
             case '/add':
+            case '/adduser':
                 setTimeout(() => this.props.history.push({pathname: '/'}), 3000)
             break;           
             default:

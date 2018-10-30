@@ -30,6 +30,11 @@ const NavBar = (props) => {
                         </NavLink>
                 </li>
                 <li>
+                    <NavLink to="/adduser" className={props.option === 'addUser' ? 'selected' : 'notSelected'} onClick={() => props.onAddUser()}>
+                        Add User
+                    </NavLink>
+                </li>
+                <li>
                     <NavLink to="/" className="notSelected" onClick={() => props.onLogOut()}>
                         {props.user} - LogOut
                         </NavLink>

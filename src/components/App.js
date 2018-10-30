@@ -13,6 +13,7 @@ import NewPoll from './NewPoll'
 import PollDetail from './PollDetail'
 import RedirectPage from './RedirectPage';
 import PageNotFound from './PageNotFound';
+import NewUser from './NewUser'
 
 class App extends Component {
 
@@ -29,6 +30,8 @@ class App extends Component {
 
   onAddPoll = () => this.setState({navBarOption:'add'})
 
+  onAddUser = () => this.setState({navBarOption:'addUser'})
+
   onPollAdded = () => this.setState({displayUnAnsweredPolls:true,navBarOption:'unanswered'})
 
   onRedirect = (url) => {
@@ -38,6 +41,9 @@ class App extends Component {
       break;
       case '/add':
         this.setState({navBarOption:'add'})
+      break;
+      case '/adduser':
+      this.setState({navBarOption:'addUser'})
       break;
       default:
         this.setState({navBarOption:'unanswered'})
@@ -65,13 +71,14 @@ class App extends Component {
             this.props.authedUser !== '' ? (
               <Fragment>
                 <NavBar onUnanswered={this.onUnanswered} onAnswered={this.onAnswered}
-                  onLeaderboard={this.onLeaderboard} onAddPoll={this.onAddPoll} onLogOut={this.onLogOut} 
+                  onLeaderboard={this.onLeaderboard} onAddPoll={this.onAddPoll} onAddUser={this.onAddUser} onLogOut={this.onLogOut} 
                   option={this.state.navBarOption}/>
                 <Switch>
                   <Route path='/home' render={() => <Home displayUnAnsweredPolls={this.state.displayUnAnsweredPolls} onRedirect={this.onRedirect} />}/>
                   <Route path='/leaderboard' component={Leaderboard} />
                   <Route path='/questions/:id' component={PollDetail} />
                   <Route path='/add' render={() => <NewPoll onPollAdded={this.onPollAdded}/>} />
+                  <Route path='/adduser' component={NewUser} />
                 </Switch>
               </Fragment>)            
               :
