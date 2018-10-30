@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux'
 import '../App.css';
 
-class Leaderboard extends Component{
-
-  render(){
+const Leaderboard = (props) => {
+  
     return(
       <ul>
         {
-          this.props.users.map(user => (
+          props.users.map(user => (
             <li key={user.id}>
               <img
                 src={user.avatarURL}
@@ -22,8 +21,7 @@ class Leaderboard extends Component{
         ))}
       	   
       </ul> 
-    )
-  }
+    )  
 }
 
 const mapStateToProps = state => {
