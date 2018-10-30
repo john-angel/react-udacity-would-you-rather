@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
 import {Link,withRouter} from 'react-router-dom'
 
 class Poll extends Component{
@@ -15,7 +14,7 @@ class Poll extends Component{
     render(){
         return(
             <div>
-                <Link to={`/questions/${this.props.id}`} className='question' onClick={(e) => this.onPollSelected(e, this.props.id)}>
+                <Link to={`/questions/${this.props.data.id}`} className='question' onClick={(e) => this.onPollSelected(e, this.props.data.id)}>
                     {this.props.data.optionOne.text} or {this.props.data.optionTwo.text}
                 </Link>
             </div>
@@ -23,11 +22,4 @@ class Poll extends Component{
     }
 }
 
-function mapStateToProps(state, props) {
-    const { id } = props.data   
-    return {
-        id,
-        unAnswered: props.unAnswered}
-}
-
-export default withRouter(connect(mapStateToProps)(Poll));
+export default withRouter(Poll);
