@@ -53,7 +53,8 @@ const mapStateToProps = (state,ownProps) => {
 
     return { 
         polls:questions,
-        unAnswered:ownProps.displayUnAnsweredPolls }
+        unAnswered:ownProps.displayUnAnsweredPolls 
+    }
     
 }
 
