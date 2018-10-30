@@ -1,15 +1,19 @@
-import React,{Component} from 'react'
+import React,{Fragment} from 'react'
+import { Link } from 'react-router-dom'
 
-class PageNotFound extends Component{
-    componentDidMount(){
-        window.sessionStorage.removeItem('urlRequested')
-    }
-    render(){
-        return(
-            <h3>404 - Oops that page is no longer with us :-(</h3>
+import '../App.css'
 
-        )
-    }
+const PageNotFound = () => {
+
+    const url = window.sessionStorage.getItem('urlRequested')
+    window.sessionStorage.removeItem('urlRequested')
+
+    return (
+            <Fragment>
+                <h3><span className='urlNotFound'>404</span> - Oops <span className='urlNotFound'>{url}</span> page is no longer with us :-(</h3>
+                <Link className='logInRedirect' to="/">Log in ?</Link>
+            </Fragment>
+        )    
 }
 
 export default PageNotFound;

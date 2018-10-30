@@ -105,3 +105,11 @@ a {
   text-decoration: underline;
   color:blue;
 }
+
+.urlNotFound {
+  color:red;
+}
+
+.logInRedirect{
+  font-size: 1.5em;
+}
