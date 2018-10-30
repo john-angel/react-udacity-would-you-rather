@@ -13,6 +13,7 @@ class Home extends Component{
             window.sessionStorage.removeItem('urlRequested')
             console.log('Redirecting to', url)
             this.props.history.push({ pathname: url })
+            this.props.onRedirect(url)
         }
     }
     

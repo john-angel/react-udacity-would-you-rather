@@ -5,70 +5,50 @@ import '../App.css'
 
 class NavBar extends Component {
 
-    state = {
-        classAnswered: 'notSelected',
-        classUnanswered: 'selected',
-        classLeaderboard: 'notSelected',
-        classAddPoll: 'notSelected'
-    }
-
-    resetLinkClasses = () => {
-        this.setState({classAnswered: 'notSelected',classUnanswered:'notSelected',classLeaderboard:'notSelected',classAddPoll: 'notSelected'})
-
-    }
-
-    onAnsweredSelected = () => {
-        this.resetLinkClasses()
-        this.setState({classAnswered: 'selected'})
+    onAnsweredSelected = () => {       
         this.props.onAnsweredSelected()
     }
 
-    onUnansweredSelected = () => {
-        this.resetLinkClasses()
-        this.setState({classUnanswered: 'selected'})
+    onUnansweredSelected = () => {        
         this.props.onUnansweredSelected()
     }
 
-    onLeaderboardSelected = () => {
-        this.resetLinkClasses()
-        this.setState({classLeaderboard: 'selected'})
+    onLeaderboardSelected = () => {        
         this.props.onLeaderboardSelected()
     }
 
     onAddPollSelected = () => {
-        this.resetLinkClasses()
-        this.setState({classAddPoll: 'selected'})
+        this.props.onAddPoll()
     }
 
-  
 
     render(){
         return (
             <nav className='nav'>
                 <ul>
                     <li>
-                        <NavLink to="/home" className={this.state.classAnswered} onClick={() => this.onAnsweredSelected()}
+                        <NavLink to="/home" className={this.props.option === 'answered' ? 'selected' : 'notSelected'} onClick={() => this.props.onAnswered()}
                         >
                             Answered
                             </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/home" className={this.props.pollAdded ? 'selected'  : this.state.classUnanswered} onClick={() => this.onUnansweredSelected()}>
+                        <NavLink to="/home" className={this.props.option === 'unanswered' ? 'selected' : 'notSelected'} onClick={() => this.props.onUnanswered()}>
                             Unanswered
                             </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/leaderboard" className={this.props.pollAdded ? 'notSelected' : this.state.classLeaderboard} onClick={() => this.onLeaderboardSelected()}>
+                        <NavLink to="/leaderboard" className={this.props.option === 'leaderboard' ? 'selected' : 'notSelected'} onClick={() => this.props.onLeaderboard()}>
                             Leaderboard
                             </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/add" className={this.props.pollAdded ? 'notSelected'  : this.state.classAddPoll} onClick={() => this.onAddPollSelected()}>
+                        <NavLink to="/add" className={this.props.option === 'add' ? 'selected' : 'notSelected'} onClick={() => this.props.onAddPoll()}>
                             Add Poll
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/" className="notSelected" onClick={() => this.props.onLogOutSelected()}>
+                        <NavLink to="/" className="notSelected" onClick={() => this.props.onLogOut()}>
                             {this.props.user} - LogOut
                         </NavLink>
                     </li>
@@ -79,10 +59,9 @@ class NavBar extends Component {
     }
 }
 
-const mapStateToProps = (state,ownProps) => {
+const mapStateToProps = state => {
     return { 
         user: state.users[state.authedUser].name,
-        pollAdded:ownProps.pollAdded
     }
 }
 

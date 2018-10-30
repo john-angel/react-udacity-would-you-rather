@@ -17,27 +17,45 @@ import PageNotFound from './PageNotFound';
 class App extends Component {
 
   state = {
-    displayUnAnsweredPolls: true,
-    pollAdded:false
+    displayUnAnsweredPolls: true,   
+    navBarOption:'unanswered'
   }
 
-  onUnansweredSelected = () => (this.setState({displayUnAnsweredPolls:true,pollAdded:false}))  
+  onUnanswered = () => (this.setState({displayUnAnsweredPolls:true,navBarOption:'unanswered'}))  
 
-  onAnsweredSelected = () => (this.setState({displayUnAnsweredPolls:false,pollAdded:false}))
+  onAnswered = () => (this.setState({displayUnAnsweredPolls:false,navBarOption:'answered'}))
 
-  onLeaderboardSelected = () => this.setState({pollAdded:false})
+  onLeaderboard = () => this.setState({navBarOption:'leaderboard'})
 
-  onPollAdded = () => this.setState({displayUnAnsweredPolls:true,pollAdded:true})
+  onAddPoll = () => this.setState({navBarOption:'add'})
+
+  onPollAdded = () => this.setState({displayUnAnsweredPolls:true,navBarOption:'unanswered'})
+
+  onRedirect = (url) => {
+    switch(url){
+      case '/leaderboard':
+        this.setState({navBarOption:'leaderboard'})
+      break;
+      case '/add':
+        this.setState({navBarOption:'add'})
+      break;
+      default:
+        this.setState({navBarOption:'unanswered'})
+      break;
+    }    
+  }
   
-  onLogOutSelected =() => {
-    this.setState({displayUnAnsweredPolls:true})
+  onLogOut =() => {
+    this.setState({
+      displayUnAnsweredPolls:true,      
+      navBarOption:'unanswered'
+    })
     this.props.dispatch(resetAuthedUser())
     sessionStorage.removeItem('authedUser');
   }      
 
   componentDidMount() {
     this.props.dispatch(handleGetQuestions())
-
   }
   
   render() {
@@ -46,10 +64,11 @@ class App extends Component {
           {
             this.props.authedUser !== '' ? (
               <Fragment>
-                <NavBar onUnansweredSelected={this.onUnansweredSelected} onAnsweredSelected={this.onAnsweredSelected}
-                onLeaderboardSelected={this.onLeaderboardSelected} onLogOutSelected={this.onLogOutSelected} pollAdded={this.state.pollAdded}/>
+                <NavBar onUnanswered={this.onUnanswered} onAnswered={this.onAnswered}
+                  onLeaderboard={this.onLeaderboard} onAddPoll={this.onAddPoll} onLogOut={this.onLogOut} 
+                  option={this.state.navBarOption}/>
                 <Switch>
-                  <Route path='/home' render={() => <Home displayUnAnsweredPolls={this.state.displayUnAnsweredPolls} />}/>
+                  <Route path='/home' render={() => <Home displayUnAnsweredPolls={this.state.displayUnAnsweredPolls} onRedirect={this.onRedirect} />}/>
                   <Route path='/leaderboard' component={Leaderboard} />
                   <Route path='/questions/:id' component={PollDetail} />
                   <Route path='/add' render={() => <NewPoll onPollAdded={this.onPollAdded}/>} />
