@@ -2,8 +2,9 @@ import React,{Component} from 'react'
 import { handleAddUser } from '../actions/users';
 import {connect} from 'react-redux'
 
-
 class NewUser extends Component{
+
+    state = {header:'New user!'}
 
     handleSubmit = (e) => {
         e.preventDefault()
@@ -20,12 +21,13 @@ class NewUser extends Component{
         user.questions = []
 
         dispatch(handleAddUser(user))
+        this.setState({header:`User ${user.name} created!`})    
     }
     
     render(){
         return(
             <form className='newUser' onSubmit={this.handleSubmit}>
-                <h1>New user!</h1>
+                <h1>{this.state.header}</h1>
                 <input placeholder="Name..." ref={(input) => this.name = input}/>
                 <input placeholder="Avatar URL..." ref={(input) => this.avatarURL = input}/>                
                 <button
