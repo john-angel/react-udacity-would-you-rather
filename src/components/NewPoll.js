@@ -7,6 +7,13 @@ import '../App.css'
 
 class NewPoll extends Component{
 
+    state = {disableButton:true}
+
+    handleChange = (e) => {       
+
+        this.setState(() => ({disableButton: this.option1.value.length && this.option2.value.length ? false : true }))
+    }
+
     handleSubmit = (e) => {
         e.preventDefault()
 
@@ -24,11 +31,12 @@ class NewPoll extends Component{
         return(
             <form className='newPoll' onSubmit={this.handleSubmit}>
                 <h1>Would you rather?</h1>
-                <input placeholder="Option 1..." ref={(input) => this.option1 = input}/>
-                <input placeholder="Option 2..." ref={(input) => this.option2 = input}/>                
+                <input placeholder="Option 1..." ref={(input) => this.option1 = input} onChange={this.handleChange}/>
+                <input placeholder="Option 2..." ref={(input) => this.option2 = input} onChange={this.handleChange}/>                
                 <button
                     className='btn'
-                    type='submit'>
+                    type='submit'
+                    disabled={this.state.disableButton}>
                     Add
                 </button>
             </form> 
