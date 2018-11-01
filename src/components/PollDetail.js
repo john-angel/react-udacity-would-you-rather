@@ -1,63 +1,60 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 import '../App.css';
 import {handleSaveQuestionAnswer} from '../actions/questions'
 
-class PollDetail extends Component {
+const PollDetail = props => {
 
-    onAnswerSelected = (e,option) => {
+    const onAnswerSelected = (e, option) => {
         e.preventDefault()
-        return this.props.dispatch(handleSaveQuestionAnswer(this.props.data.id,option))        
+        return props.dispatch(handleSaveQuestionAnswer(props.data.id, option))
     }
 
-    getOptionClassName = (option) => {
-        const votes = option.votes.filter(vote => vote === this.props.authedUser)
+    const getOptionClassName = (option) => {
+        const votes = option.votes.filter(vote => vote === props.authedUser)
         return votes.length ? 'optionSelected' : ''
     }
 
-    getVotesInfo = (option) => {
+    const getVotesInfo = (option) => {
         const votes = option.votes.length
-        const percentage = (this.props.data.optionOne.votes.length || this.props.data.optionTwo.votes.length) ?
-        (votes/(this.props.data.optionOne.votes.length + this.props.data.optionTwo.votes.length)) * 100 :
-        0
+        const percentage = (props.data.optionOne.votes.length || props.data.optionTwo.votes.length) ?
+            (votes / (props.data.optionOne.votes.length + props.data.optionTwo.votes.length)) * 100 :
+            0
 
         return `Votes: ${votes} - (${percentage.toFixed(2)}%)`
     }
 
-    render(){
-
-        return(
-            <div>
-                <h4>Would you rather?</h4>
-                <p onClick={this.props.unAnswered ? (e) => this.onAnswerSelected(e, 'optionOne'):null} className={`pollOption  ${this.getOptionClassName(this.props.data.optionOne)}`}>
-                    {this.props.data.optionOne.text} {this.props.unAnswered ? '': this.getVotesInfo(this.props.data.optionOne)}           
-                </p>
-                <p onClick={this.props.unAnswered ? (e) => this.onAnswerSelected(e, 'optionTwo'):null} className={`pollOption ${this.getOptionClassName(this.props.data.optionTwo)}`}>                
-                        {this.props.data.optionTwo.text} {this.props.unAnswered ? '': this.getVotesInfo(this.props.data.optionTwo)}                  
-                </p>
-                <img src={this.props.authorAvatarURL}
-                     alt={this.props.authorName}
-                     className='avatar'
-                />
-                <p>Author: {this.props.authorName}</p>
-                <p>Created: {new Date(this.props.data.timestamp).toDateString()}</p>
-            </div>
-        )
-    }
-    
+    return (
+        <div>
+            <h4>Would you rather?</h4>
+            <p onClick={props.unAnswered ? (e) => onAnswerSelected(e, 'optionOne') : null} className={`pollOption  ${getOptionClassName(props.data.optionOne)}`}>
+                {props.data.optionOne.text} {props.unAnswered ? '' : getVotesInfo(props.data.optionOne)}
+            </p>
+            <p onClick={props.unAnswered ? (e) => onAnswerSelected(e, 'optionTwo') : null} className={`pollOption ${getOptionClassName(props.data.optionTwo)}`}>
+                {props.data.optionTwo.text} {props.unAnswered ? '' : getVotesInfo(props.data.optionTwo)}
+            </p>
+            <img src={props.authorAvatarURL}
+                alt={props.authorName}
+                className='avatar'
+            />
+            <p>Author: {props.authorName}</p>
+            <p>Created: {new Date(props.data.timestamp).toDateString()}</p>
+        </div>
+    )
 }
 
 function mapStateToProps(state, props) {
     const { id } = props.match.params
     const data = state.questions[id]
     const {avatarURL,name} = state.users[data.author]
+    let unAnswered = !(state.questions[id].optionOne.votes.indexOf(state.authedUser) >- 1 || state.questions[id].optionTwo.votes.indexOf(state.authedUser) >- 1)
 
     return {data,
         authorAvatarURL:avatarURL,
         authorName:name,
-        unAnswered:props.history.location.state.unAnswered,
+        unAnswered:unAnswered,
         authedUser: state.authedUser
     }
 }    
