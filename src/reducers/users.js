@@ -1,4 +1,4 @@
-import { GET_USERS, SAVE_USER} from '../actions/users'
+import { GET_USERS, SAVE_USER, SAVE_USER_ANSWER} from '../actions/users'
 
 export default function users(state = {}, action) {
   let newState = {}
@@ -15,6 +15,20 @@ export default function users(state = {}, action) {
         ...state,
         [user.id]:user
       }  
+      break;      
+
+      case SAVE_USER_ANSWER:
+      const {id,option,authedUser} = action
+      newState = {
+        ...state,
+        [authedUser]:{
+          ...state[authedUser],
+          answers:{
+            ...state[authedUser].answers,
+            [id]:option
+          }
+        }
+      }
       break;
 
     default:

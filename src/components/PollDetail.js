@@ -46,6 +46,7 @@ const PollDetail = props => {
 }
 
 function mapStateToProps(state, props) {
+
     const { id } = props.match.params
     const data = state.questions[id]
     const {avatarURL,name} = state.users[data.author]

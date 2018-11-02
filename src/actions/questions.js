@@ -1,7 +1,7 @@
 import {_getQuestions as getQuestionsApi} from '../utils/_DATA'
 import {_saveQuestion as saveQuestionApi} from '../utils/_DATA'
 import {_saveQuestionAnswer as saveQuestionAnswerApi} from '../utils/_DATA'
-import { handleGetUsers } from './users';
+import {saveUserAnswer} from './users'
 
 export const GET_QUESTIONS = 'GET_QUESTIONS'
 export const SAVE_QUESTION = 'SAVE_QUESTION'
@@ -36,18 +36,20 @@ export function handleSaveQuestion(question) {
     }
 }
 
-export function saveQuestionAnswer(){
+export function saveQuestionAnswer(id,option,user){
     return {
-        type: SAVE_QUESTION_ANSWER
+        type: SAVE_QUESTION_ANSWER,
+        id,
+        option,
+        user
     }
-
 }
 
 export function handleSaveQuestionAnswer(qid, answer){
     return (dispatch, getState) => {
         const {authedUser} = getState()
         return saveQuestionAnswerApi({ authedUser, qid, answer })
-        .then(() => dispatch(handleGetQuestions()))
-        .then(() => dispatch(handleGetUsers()))
+        .then(() => dispatch(saveQuestionAnswer(qid,answer,authedUser)))
+        .then(() => dispatch(saveUserAnswer(qid,answer,authedUser)))
     }
 }
