@@ -6,19 +6,25 @@ class RedirectPage extends Component{
     componentDidMount(){
         console.log('Page requested', this.props.location.pathname)
         window.sessionStorage.setItem('urlRequested',this.props.location.pathname)
-   
-        switch(this.props.location.pathname){
-            case '/home':
-            case '/leaderboard':
-            case '/add':
-            case '/adduser':
-                setTimeout(() => this.props.history.push({pathname: '/'}), 3000)
-            break;           
-            default:
-                this.props.history.push({pathname: '/pagenotfound'})            
-            break;
-        }       
-       
+
+
+        const questionsURL = this.props.location.pathname.indexOf('/questions/')
+
+        if(questionsURL !== -1){
+            setTimeout(() => this.props.history.push({pathname: '/'}), 3000)
+        }else{
+            switch(this.props.location.pathname){
+                case '/home':
+                case '/leaderboard':
+                case '/add':
+                case '/adduser':
+                    setTimeout(() => this.props.history.push({pathname: '/'}), 3000)
+                break;                     
+                default:
+                    this.props.history.push({pathname: '/pagenotfound'})            
+                break;
+            }
+        }
     }
 
     render(){

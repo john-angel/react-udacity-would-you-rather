@@ -8,19 +8,28 @@ import {setAuthedUser} from '../actions/authedUser'
 
 
 class User extends Component{
-    
-    onUserSelected = (e, userId) =>{
-        console.log('User', userId, ' logged in')
-        this.props.dispatch(setAuthedUser(userId))
-        window.sessionStorage.setItem('authedUser',userId)
 
+    constructor(props){
+        super(props);
+        const url = window.sessionStorage.getItem('urlRequested')
+        this.state = {route: (url != null) && (url.indexOf('/questions/') !== -1) ? '/pagenotfound' : '/home'};
+    }
+ 
+    onUserSelected = (e, userId) => {
+       
+        if(this.state.route === '/home')
+        {
+            console.log('User', userId, ' logged in')
+            this.props.dispatch(setAuthedUser(userId))
+            window.sessionStorage.setItem('authedUser',userId)
+        }       
     }
 
    
     render(){
         return (
             <li onClick={(e) => this.onUserSelected(e, this.props.id)}>
-                <Link to="/home">
+                <Link to={this.state.route}>
                     <img
                         src={this.props.avatar}
                         alt={this.props.name}
@@ -28,7 +37,7 @@ class User extends Component{
                     />
                     <p>{this.props.name}</p>
                 </Link>
-                </li>            
+            </li>            
         )
 
     }
