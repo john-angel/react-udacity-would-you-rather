@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+
 import '../App.css'
 
 const NavBar = (props) => {
@@ -45,10 +46,9 @@ const NavBar = (props) => {
 }
 
 
-const mapStateToProps = state => {
+const mapStateToProps = (state,props) => {
     return { 
         user: state.users[state.authedUser].name,
     }
 }
-
 export default connect(mapStateToProps)(NavBar);

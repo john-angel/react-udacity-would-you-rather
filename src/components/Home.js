@@ -12,7 +12,6 @@ class Home extends Component{
         if(url != null){
             window.sessionStorage.removeItem('urlRequested')
             console.log('Redirecting to', url)            
-            setTimeout(() => this.props.history.push({pathname: '/'}), 3000)
             this.props.history.push({ pathname: url })
             this.props.onRedirect(url)
             
