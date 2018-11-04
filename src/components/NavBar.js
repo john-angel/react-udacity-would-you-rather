@@ -55,10 +55,11 @@ const NavBar = (props) => {
 
 
 const mapStateToProps = (state,props) => {
+    const referral = (props.location.pathname === '/home' || props.location.pathname.indexOf('/questions/') !== -1) ? (props.displayUnAnsweredPolls === true ? 'unanswered' : 'answered') : props.location.pathname
 
     return { 
         user: state.users[state.authedUser].name,
-        url:props.location.pathname === '/home' ? (props.displayUnAnsweredPolls === true ? 'unanswered' : 'answered') : props.location.pathname
+        url: referral
     }
 }
 export default withRouter(connect(mapStateToProps)(NavBar));

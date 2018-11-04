@@ -44,7 +44,7 @@ class App extends Component {
                 <NavBar onUnanswered={this.onUnanswered} onAnswered={this.onAnswered} displayUnAnsweredPolls={this.state.displayUnAnsweredPolls} 
                   onLogOut={this.onLogOut}/>
                 <Switch>
-                  <Route path='/home' render={() => <Home displayUnAnsweredPolls={this.state.displayUnAnsweredPolls} onRedirect={this.onRedirect} />}/>
+                  <Route path='/home' render={() => <Home displayUnAnsweredPolls={this.state.displayUnAnsweredPolls} />}/>
                   <Route path='/leaderboard' component={Leaderboard} />
                   <Route path='/questions/:id' component={PollDetail} />
                   <Route path='/add' render={() => <NewPoll onPollAdded={this.onPollAdded}/>} />
