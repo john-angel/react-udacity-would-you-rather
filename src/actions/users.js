@@ -5,6 +5,8 @@ import {_saveUser as saveUserApi} from '../utils/_DATA'
 export const GET_USERS = 'GET_USERS'
 export const SAVE_USER = 'SAVE_USER'
 export const SAVE_USER_ANSWER = 'SAVE_USER_ANSWER'
+export const SAVE_USER_QUESTION = 'SAVE_USER_QUESTION'
+
 
 
 export function getUsers(users) {
@@ -27,6 +29,14 @@ export function saveUserAnswer(qid,answer,authedUser){
         id:qid,
         option:answer,
         authedUser        
+    }
+}
+
+export function saveUserQuestion(qid,user){
+    return {
+        type: SAVE_USER_QUESTION,
+        id:qid,
+        user
     }
 }
 

@@ -22,9 +22,9 @@ class App extends Component {
     navBarOption:'unanswered'
   }
 
-  onUnanswered = () => (this.setState({displayUnAnsweredPolls:true,navBarOption:'unanswered'}))  
+  onUnanswered = () => this.setState({displayUnAnsweredPolls:true,navBarOption:'unanswered'}) 
 
-  onAnswered = () => (this.setState({displayUnAnsweredPolls:false,navBarOption:'answered'}))
+  onAnswered = () => this.setState({displayUnAnsweredPolls:false,navBarOption:'answered'})
 
   onLeaderboard = () => this.setState({navBarOption:'leaderboard'})
 

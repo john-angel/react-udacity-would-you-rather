@@ -1,4 +1,4 @@
-import { GET_USERS, SAVE_USER, SAVE_USER_ANSWER} from '../actions/users'
+import { GET_USERS, SAVE_USER, SAVE_USER_ANSWER, SAVE_USER_QUESTION} from '../actions/users'
 
 export default function users(state = {}, action) {
   let newState = {}
@@ -9,24 +9,34 @@ export default function users(state = {}, action) {
         ...action.users
       }
       break;
-      case SAVE_USER:
+    case SAVE_USER:
       const { user } = action
       newState = {
         ...state,
-        [user.id]:user
-      }  
-      break;      
+        [user.id]: user
+      }
+      break;
 
-      case SAVE_USER_ANSWER:
-      const {id,option,authedUser} = action
+    case SAVE_USER_ANSWER:
+      const { id, option, authedUser } = action
       newState = {
         ...state,
-        [authedUser]:{
+        [authedUser]: {
           ...state[authedUser],
-          answers:{
+          answers: {
             ...state[authedUser].answers,
-            [id]:option
+            [id]: option
           }
+        }
+      }
+      break;
+
+    case SAVE_USER_QUESTION:
+      newState = {
+        ...state,
+        [action.user]:{
+          ...state[action.user],
+          questions: state[action.user].questions.concat([action.id])
         }
       }
       break;
