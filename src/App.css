@@ -113,3 +113,12 @@ a {
 .logInRedirect{
   font-size: 1.5em;
 }
+
+.userLogin {
+  border: 1px solid #A85ECC;
+  border-radius: 2px;
+  margin-left: 10px;  
+  width: 150px;
+  height: 100px;
+  float: left;
+}

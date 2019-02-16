@@ -28,16 +28,15 @@ class User extends Component{
    
     render(){
         return (
-            <li onClick={(e) => this.onUserSelected(e, this.props.id)}>
+            <div className='userLogin' onClick={(e) => this.onUserSelected(e, this.props.id)}>
                 <Link to={this.state.route}>
                     <img
                         src={this.props.avatar}
                         alt={this.props.name}
                         className='avatar'
                     />
-                    <p>{this.props.name}</p>
                 </Link>
-            </li>            
+            </div>            
         )
 
     }

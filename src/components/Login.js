@@ -21,14 +21,9 @@ class Login extends Component{
                     <h1 className="App-title">Would you rather?</h1>
                 </header>
                 {
-                    <ul>
-                        {
-                            this.props.users.map(user => (
-                                <User key={user.id} avatar={user.avatarURL} name={user.name} id={user.id} />
-                            ))
-
-                        }
-                    </ul>                    
+                    this.props.users.map(user => (
+                        <User key={user.id} avatar={user.avatarURL} name={user.name} id={user.id} />
+                    ))
                 }                
             </div>
         )
