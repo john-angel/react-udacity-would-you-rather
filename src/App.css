@@ -115,12 +115,8 @@ a {
 }
 
 .userLogin {
-  border: 1px solid #A85ECC;
-  border-radius: 2px;
-  margin-left: 10px;  
   width: 150px;
   height: 120px;
-  float: left;
 }
 
 .loginContainer {
