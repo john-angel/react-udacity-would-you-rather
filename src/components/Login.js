@@ -20,11 +20,13 @@ class Login extends Component{
                     <img src={logo} className="App-logo" alt="logo" />
                     <h1 className="App-title">Would you rather?</h1>
                 </header>
+                <div className="loginContainer">
                 {
                     this.props.users.map(user => (
                         <User key={user.id} avatar={user.avatarURL} name={user.name} id={user.id} />
                     ))
-                }                
+                } 
+                </div>               
             </div>
         )
     }

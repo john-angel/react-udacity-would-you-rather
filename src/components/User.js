@@ -35,7 +35,8 @@ class User extends Component{
                         alt={this.props.name}
                         className='avatar'
                     />
-                </Link>
+                    <p>{this.props.name}</p>
+                </Link>                
             </div>            
         )
 

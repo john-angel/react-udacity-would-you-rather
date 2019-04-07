@@ -119,6 +119,13 @@ a {
   border-radius: 2px;
   margin-left: 10px;  
   width: 150px;
-  height: 100px;
+  height: 120px;
   float: left;
+}
+
+.loginContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
 }
